@@ -104,8 +104,8 @@ function display_swim_races(swim_races) {
             groupedByMetro[metro][city].forEach(race => {
                 const raceRow = $(
                     `<tr>
-                        <td style="font-weight: 600;">${race.date}</td>
-                        <td style="font-weight: 600;">${race.distance}</td>
+                        <td style="font-weight: 500;">${race.date}</td>
+                        <td style="font-weight: 500;">${race.distance}</td>
                         <td style="font-weight: 400;">${race.location_beach}</td>
                         <td style="font-weight: 400;"><a href="/view/${race.id}" class="race-link">${race.title}</a></td>
                     </tr>`
