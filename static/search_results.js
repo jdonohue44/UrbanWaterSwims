@@ -17,9 +17,19 @@ function displaySwimRaces(swim_races, query) {
 		swimRaceContainer.append(`<p>Displaying ${swim_races.length} results for <span class="highlight">${query}</span></p>`);
 		swim_races.forEach((race, index) => {
 			// Card container
-			const card = $('<div>').addClass('card mb-2 shadow-sm').css({
+			// const card = $('<div>').addClass('card mb-2 shadow-sm search-card').css({
+			// 	padding: '0px 8px 0 8px', // Reduce padding inside the card
+			// 	borderRadius: '6px' // Slightly round corners for compact style
+			// });
+			const card = $('<a>')
+			.attr('href', '/view/' + race.id) // Make the whole card clickable
+			.addClass('card mb-2 shadow-sm search-card')
+			.css({
 				padding: '0px 8px 0 8px', // Reduce padding inside the card
-				borderRadius: '6px' // Slightly round corners for compact style
+				borderRadius: '6px', // Slightly round corners for compact style
+				textDecoration: 'none', // Remove default underline
+				color: 'inherit', // Keep text color unchanged
+				display: 'block' // Ensure it behaves as a block element
 			});
 
 			// Row inside the card
@@ -46,7 +56,7 @@ function displaySwimRaces(swim_races, query) {
 
 			// Title with link
 			const title = $('<h6>').addClass('card-title mb-1').css({ fontSize: '1rem'}); // Smaller font size for title
-			title.append($('<a style="color: rgb(0, 135, 162)">')
+			title.append($('<a>')
 				.attr('href', '/view/' + race.id)
 				.html(highlightText(race.title, query)) 
 			);

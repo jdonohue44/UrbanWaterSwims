@@ -1,38 +1,46 @@
 /* JARED DONOHUE (jjd2203) */
-.error {
-    color: red;
-    font-size: 0.8em;
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }  
+.race-table {
+    width: 100%;
+    border-collapse: collapse; /* Ensures borders align properly */
+    border-spacing: 0; /* Removes unwanted spacing */
 }
-.races-container {
-    padding: 40px;
+.race-table th, 
+.race-table td {
+    padding: 0px 4px;
+    border: 1px solid #ddd; /* Default border to keep structure */
 }
-#myname {
-    color: #808080;
+.race-table th {
+    padding: 0px 4px;
+    background-color: #e3f2fd;
+    color: #0387a2;
+    border-bottom: 2px solid #ddd !important; /* Ensure a visible bottom border */
 }
-#welcome-brand-img {
-    height: 200px;
-    display: inline;
+.race-table tr {
+    box-sizing: border-box;
 }
-#hello_div{
-    padding-top:  10px;
-    padding-bottom:  10px;
-    color: rgb(22, 122, 19);
-}
-
-/* Prototyping */
-
+/* .race-table tr:hover {
+    background-color: #e3f2fd !important;
+    border: 2px solid #0387a2 !important;
+} */
 .metro-header {
     font-size: 24px;
     font-weight: bold;
     margin-top: 15px;
-    color: #4a4a4a
+    color: #0387a2;
+    
 }
-
+.search-card:hover {
+    background-color: #ebebeb;
+    border: 1px solid #aeaeae;
+}
 .city-header {
     font-size: 18px;
     font-weight: 500;
     margin-top: 10px;
-    color: #4a4a4a
+    color: #0387a2;
 }
 
 .city-list, .race-list {
@@ -68,8 +76,6 @@
 }
 
 .race-link {
-    text-decoration: none;
-    color: #717171;
 }
 
 .race-link:hover {

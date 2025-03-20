@@ -45,7 +45,7 @@ function display_swim_race(race) {
         $('<a>').attr({
             href: '/search_results?q=' + race.location_metro,
             class: 'btn btn-primary search-btn rounded-pill',
-        }).html('Explore More <b>' + race.location_metro + '</b> Races'));
+        }).html('Explore more races in <b>' + race.location_metro + '</b>'));
         
     row2.append(textCol2);
     swimRaceContainer.append(row2);
