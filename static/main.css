@@ -1,0 +1,195 @@
+/* JARED DONOHUE (jjd2203) */
+.error {
+    color: red;
+    font-size: 0.8em;
+}
+.races-container {
+    padding: 40px;
+}
+#myname {
+    color: #808080;
+}
+#welcome-brand-img {
+    height: 200px;
+    display: inline;
+}
+#hello_div{
+    padding-top:  10px;
+    padding-bottom:  10px;
+    color: rgb(22, 122, 19);
+}
+
+/* Prototyping */
+
+.metro-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #4a4a4a
+}
+
+.city-header {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 10px;
+    color: #4a4a4a
+}
+
+.city-list, .race-list {
+    list-style-type: none;
+    padding-left: 15px;
+}
+
+.race-item {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+}
+
+.view_item_text {
+    /* line-height: 12px; */
+    color: #4a4a4a;
+    font-size: 18px;
+}
+
+.edit-race-link {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 12px;
+    vertical-align: middle;
+    color: #0387a2;
+}
+
+.race-img {
+    width: 40px; 
+    height: 40px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.race-link {
+    text-decoration: none;
+    color: #717171;
+}
+
+.race-link:hover {
+    text-decoration: underline;
+}
+
+.home-img {
+    height: 400px;
+}
+
+#home-banner {
+    color: rgb(0, 135, 162);
+}
+
+.race-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4a4a4a;
+}
+
+.race-description {
+    font-size: 1.2rem;
+    color: #808080;
+}
+
+.custom-btn {
+    border-color: rgb(0, 135, 162);
+    color: #0387a2;
+}
+
+.custom-btn:hover {
+    background-color: rgb(0, 135, 162); /* Ensures hover background matches border */
+    color: white !important; /* Changes text color to white */
+}
+
+.race-btn {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.extra-info p {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+h5 {
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.card-body {
+    padding-bottom: 0;
+}
+
+.card-title {
+    color:  rgb(0, 135, 162);
+}
+
+.btn.btn-outline-dark.rounded-pill.ms-4:hover {
+    background-color: rgb(0, 135, 162);
+    border-color: rgb(0, 135, 162);
+    color: white;
+}
+
+.btn.btn-primary.race-btn.rounded-pill {
+    background-color: rgb(0, 135, 162);
+    border-color: rgb(0, 135, 162);
+    color: white;
+}
+
+.btn.btn-primary.race-btn.rounded-pill:hover {
+    background-color: rgb(0, 91, 110); /* Darker shade on hover */
+    border-color: rgb(255, 255, 255); /* Darker border on hover */
+    color: white;
+}
+
+input.invalid, textarea.invalid {
+    border-color: red;
+}
+
+.btn.btn-primary.add-race-btn.rounded-pill {
+    background-color: rgb(0, 100, 120); /* Darker shade on hover */
+    border-color: rgb(0, 100, 120); /* Darker border on hover */
+    color: white;
+}
+
+.btn.btn-primary.add-race-btn.rounded-pill:hover {
+    background-color: rgb(27, 134, 155); /* Darker shade on hover */
+    border-color: rgb(255, 255, 255); /* Darker border on hover */
+    color: white;
+}
+
+.external-link-icon {
+    margin-left: 5px; /* Add spacing between text and icon */
+    font-size: 0.8em; /* Adjust icon size */
+    vertical-align: middle; /* Align icon with text */
+}
+
+.btn.btn-primary.search-btn.rounded-pill {
+    background-color: rgb(227 243 254);
+    border-color: rgb(0, 135, 162);
+    color: rgb(0, 135, 162);
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.btn.btn-primary.search-btn.rounded-pill:hover {
+    background-color: rgb(0, 91, 110); /* Darker shade on hover */
+    border-color: rgb(255, 255, 255); /* Darker border on hover */
+    color: white;
+}

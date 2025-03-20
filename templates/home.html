@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script src="{{url_for('static', filename='home.js')}}"></script>
+<script>
+    let data = {{data|tojson}} 
+</script>
+
+<div class="container mt-4" style="padding-left: 0;">
+    <div class="text-left mb-4" id="home-banner">
+        <h1>Urban Water Races 2025</h1>
+        <p class="lead">Find beginner-friendly open water races near metropolitan areas</p>
+        <!-- <img src="{{url_for('static', filename='/img/ows_m.jpg')}}" alt="Logo" class="img-fluid me-2" style="border-radius: 40px; max-height: 200px;"/> -->
+    </div>
+    
+    <div id="swim-races-container"></div>
+
+</div>
+
+{% endblock %}

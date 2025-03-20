@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='/img/logo_small.png')}}">
+    <!-- jquery -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>  
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="{{url_for('static', filename='nav.js')}}"> </script>
+    <title>Urban Water Races</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img id="nav-brand-img" src="{{url_for('static', filename='/img/logo_small.png')}}" alt="Logo" width="30" height="30" class="me-2">
+          <p style="color: rgb(0, 135, 162); display: inline-flex">Urban Water Races<p>
+        </a>
+    
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+          <div class="py-3 d-flex flex-column flex-lg-row align-items-center">
+            <form class="d-flex position-relative mb-3 mb-lg-0" role="search" action="/search_results" method="GET" autocomplete="off" style="padding-right: 6px;">
+              <input class="form-control rounded-pill border-0 shadow-sm px-3" id='search-input' name="q" type="search" placeholder="Search for a race" aria-label="Search" style="width: 300px;" autocomplete="off">
+              <button class="btn btn-outline-dark rounded-pill ms-4 custom-btn" type="submit" style="border-color: rgb(0, 135, 162); margin-left: 6px; color: #0387a2;">Search</button>
+            </form>
+            <a href="{{ url_for('add_swim_race') }}" class="btn btn-outline-dark rounded-pill ms-4 custom-btn" style="border-color: rgb(0, 135, 162); color: #0387a2;">Add New Race</a>
+          </div>
+        </div>      
+      </div>
+    </nav>
+
+    <div class="container">   
+        {% block content %}
+        {% endblock %}
+    </div>
+    <h6 id="myname" class="text-center mt-4">&copy; UrbanWaterRaces.com, last updated: March 14, 2025.</h6>
+  </body>
+</html>
+
+
+
+

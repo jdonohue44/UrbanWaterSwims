@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script src="{{url_for('static', filename='edit_item.js')}}"></script>
+<script>
+    let data = {{data|tojson}} 
+    console.log(data)
+</script>
+<div class="row align-items-center">
+    <div id="edit-swim-race-form-container" class="col-md-8 mx-auto my-3"></div>
+</div>
+{% endblock %}

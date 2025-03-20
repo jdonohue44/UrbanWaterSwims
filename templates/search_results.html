@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script src="{{url_for('static', filename='search_results.js') }}"></script>
+
+<script>
+    let data = {{data|tojson}} 
+</script>
+<div class="row align-items-center">
+    <div class="races-container" id="filtered-swim-races-container"></div>
+</div>
+{% endblock %}
