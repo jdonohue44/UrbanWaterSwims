@@ -51,165 +51,102 @@
 // }
 
 
-
-
 // ------- TABLE OPTION -------
 function display_swim_races(swim_races) {
     const container = $('#swim-races-container');
     container.empty();
 
-    // Group races by metropolitan area and city
+    // Group races by metro
     const groupedByMetro = {};
     swim_races.forEach(race => {
         if (!groupedByMetro[race.location_metro]) {
-            groupedByMetro[race.location_metro] = {};
+            groupedByMetro[race.location_metro] = [];
         }
-        if (!groupedByMetro[race.location_metro][race.location_city_or_town]) {
-            groupedByMetro[race.location_metro][race.location_city_or_town] = [];
-        }
-        groupedByMetro[race.location_metro][race.location_city_or_town].push(race);
+        groupedByMetro[race.location_metro].push(race);
     });
 
-    // Create nested tree structure with tables
-    Object.keys(groupedByMetro).forEach(metro => {
-        // const metroHeader = $(`<h3 class="metro-header">${metro}</h3>`);
-        const metroHeader = $(`<h2 class="metro-header"><a href="/search_results?q=${metro}" style="color: #505050">${metro}</a></h2>`);
-        const cityList = $('<div class="city-list"></div>');
+    // For each metro, build collapsible table
+    Object.keys(groupedByMetro).forEach((metro, index) => {
+        const races = groupedByMetro[metro];
 
-        Object.keys(groupedByMetro[metro]).forEach(city => {
-            // Sort races by date
-            groupedByMetro[metro][city].sort((a, b) => new Date(a.date) - new Date(b.date));
-            
-            // const cityHeader = $(`<h5 class="city-header collapsible d-flex align-items-center" data-expanded="true">
-            //     <span class="toggle-icon">&#9662;</span> <span class="ms-2">${city}</span>
-            // </h5>`);
+        // Sort races by date
+        races.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            const cityHeader = $(`<h3 class="city-header"><a href="/search_results?q=${city}" style="color: #505050">${city}</a></h3>`);
-            
-            const raceTable = $(`
-                <table class="race-table table table-bordered table-striped table-hover mt-2">
+        const metroId = `metro-${index}`;
+        const toggleId = `toggle-${index}`;
+
+        // Create metro header with toggle link
+        const metroHeader = $(`
+            <h2 class="metro-header" style="cursor: pointer;" id="${toggleId}">
+                <a style="color: #505050; text-decoration: none;">${metro} ▾</a>
+            </h2>
+        `);
+
+        // Build race table (initially collapsed)
+        const raceTable = $(`
+            <table class="race-table table table-bordered table-striped table-hover mt-2" id="${metroId}">
                 <thead class="table-light">
                     <tr>
-                        <th style="width: 20%;">Date</th>
+                        <th style="width: 15%;">Date</th>
+                        <th style="width: 15%;">City</th>
                         <th style="width: 20%;">Distance</th>
-                        <th style="width: 25%;">Beach</th>
-                        <th style="width: 35%;">Race</th>
+                        <th style="width: 20%;">Beach</th>
+                        <th style="width: 30%;">Race</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
-                </table>
-                `);
-            const raceBody = raceTable.find('tbody');
+            </table>
+        `);
+        const raceBody = raceTable.find('tbody');
 
-            groupedByMetro[metro][city].forEach(race => {
-                const raceRow = $(
-                    `<tr>
-                        <td style="font-weight: 500;">${race.date}</td>
-                        <td style="font-weight: 500;">${race.distance}</td>
-                        <td style="font-weight: 400;">${race.location_beach}</td>
-                        <td style="font-weight: 400;"><a href="/view/${race.id}" class="race-link">${race.title}</a></td>
-                    </tr>`
-                );
-                raceBody.append(raceRow);
-            });
-
-            cityList.append($('<div class="row">')
-                .append($('<div class="col-12">').append(cityHeader, raceTable)));
+        races.forEach((race, i) => {
+            const city = race.location_city_or_town;
+            const rowClass = i >= 3 ? 'extra-row' : ''; // hide extra rows by default
+            const raceRow = $(`
+                <tr class="${rowClass}" ${i >= 3 ? 'style="display: none;"' : ''}>
+                    <td style="font-weight: 500;">${race.date}</td>
+                    <td style="font-weight: 400;"><a href="/search_results?q=${city}">${city}</a></td>
+                    <td style="font-weight: 500;">${race.distance}</td>
+                    <td style="font-weight: 400;">${race.location_beach}</td>
+                    <td style="font-weight: 400;"><a href="/view/${race.id}" class="race-link">${race.title}</a></td>
+                </tr>
+            `);
+            raceBody.append(raceRow);
         });
 
-        container.append(metroHeader, cityList);
+        // "Show all" button if more than 3 races
+        if (races.length > 3) {
+            const showAllRow = $(`
+                <tr class="show-all-row">
+                    <td colspan="5" style="text-align: center;">
+                        <a href="#" class="show-all-link">Show all ${races.length} races</a>
+                    </td>
+                </tr>
+            `);
+            raceBody.append(showAllRow);
+
+            showAllRow.find('.show-all-link').on('click', function (e) {
+                e.preventDefault();
+                raceTable.find('.extra-row').slideToggle();
+                const isExpanded = $(this).text().includes('Show all');
+                $(this).text(isExpanded ? 'Show less' : `Show all ${races.length} races`);
+            });
+        }
+
+        // Toggle table visibility on header click
+        metroHeader.on('click', function () {
+            raceTable.slideToggle();
+            const arrow = $(this).find('a');
+            arrow.html(arrow.html().includes('▸') ? `${metro} ▾` : `${metro} ▸`);
+        });
+
+        container.append(metroHeader);
+        container.append(raceTable);
     });
 }
-
 
 
 // ------- CONTROLLERS -------
 $(document).ready(function() {
     display_swim_races(data["swim_races"]);
 });
-
-
-
-// ----- TOP X ONLY ---- 
-// function display_swim_races(swim_races) {
-//     const container = $('#swim-races-container');
-//     container.empty();
-
-//     // Group races by metropolitan area and city
-//     const groupedByMetro = {};
-//     swim_races.forEach(race => {
-//         if (!groupedByMetro[race.location_metro]) {
-//             groupedByMetro[race.location_metro] = {};
-//         }
-//         if (!groupedByMetro[race.location_metro][race.location_city_or_town]) {
-//             groupedByMetro[race.location_metro][race.location_city_or_town] = [];
-//         }
-//         groupedByMetro[race.location_metro][race.location_city_or_town].push(race);
-//     });
-
-//     // Create nested tree structure with tables
-//     Object.keys(groupedByMetro).forEach(metro => {
-//         const metroHeader = $(`<h2 class="metro-header"><a href="/search_results?q=${metro}" style="color: #505050">${metro}</a></h2>`);
-//         const cityList = $('<div class="city-list"></div>');
-
-//         Object.keys(groupedByMetro[metro]).forEach(city => {
-//             // Sort races by date
-//             groupedByMetro[metro][city].sort((a, b) => new Date(a.date) - new Date(b.date));
-
-//             // Create city header
-//             const cityHeader = $(`<h3 class="city-header"><a href="/search_results?q=${city}" style="color: #505050">${city}</a></h3>`);
-
-//             // Create race table
-//             const raceTable = $(`
-//                 <table class="race-table table table-bordered table-striped table-hover mt-2">
-//                     <thead class="table-light">
-//                         <tr>
-//                             <th style="width: 20%;">Date</th>
-//                             <th style="width: 20%;">Distance</th>
-//                             <th style="width: 25%;">Beach</th>
-//                             <th style="width: 35%;">Race</th>
-//                         </tr>
-//                     </thead>
-//                     <tbody></tbody>
-//                 </table>
-//             `);
-//             const raceBody = raceTable.find('tbody');
-
-//             // Limit to top 3 races
-//             const topRaces = groupedByMetro[metro][city].slice(0, 1);
-//             topRaces.forEach(race => {
-//                 const raceRow = $(`
-//                     <tr>
-//                         <td style="font-weight: 600;">${race.date}</td>
-//                         <td style="font-weight: 600;">${race.distance}</td>
-//                         <td style="font-weight: 400;">${race.location_beach}</td>
-//                         <td style="font-weight: 400;"><a href="/view/${race.id}" class="race-link">${race.title}</a></td>
-//                     </tr>
-//                 `);
-//                 raceBody.append(raceRow);
-//             });
-
-//             // Add final row with search link if more races exist
-//             if (groupedByMetro[metro][city].length > 1) {
-//                 const searchRow = $(`
-//                     <tr>
-//                         <td colspan="4" class="text-center">
-//                             <a href="/search_results?q=${city}" class="fw-bold text-primary">Search all races in ${city} →</a>
-//                         </td>
-//                     </tr>
-//                 `);
-//                 raceBody.append(searchRow);
-//             }
-
-//             cityList.append($('<div class="row">')
-//                 .append($('<div class="col-12">').append(cityHeader, raceTable)));
-//         });
-
-//         container.append(metroHeader, cityList);
-//     });
-// }
-
-// // ------- CONTROLLERS -------
-// $(document).ready(function() {
-//     display_swim_races(data["swim_races"]);
-// });
